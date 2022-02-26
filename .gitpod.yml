@@ -4,3 +4,4 @@ image:
 vscode:
   extensions:
     - ms-azuretools.vscode-docker
+    - vscodevim.vim
