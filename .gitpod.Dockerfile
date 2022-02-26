@@ -9,10 +9,10 @@ RUN sudo apt-get update -y && sudo apt-get upgrade -y && \
 
 # Flutter Setup
 # Prerequisites
-RUN apt update && apt install -y curl git unzip xz-utils zip libglu1-mesa openjdk-8-jdk wget
+RUN sudo apt update && sudo apt install -y curl git unzip xz-utils zip libglu1-mesa openjdk-8-jdk wget
 
 # Set up new user
-RUN useradd -ms /bin/bash developer
+RUN sudo useradd -ms /bin/bash developer
 USER developer
 WORKDIR /home/developer
 
