@@ -34,7 +34,7 @@ RUN git clone https://github.com/flutter/flutter.git
 ENV PATH "$PATH:/home/developer/flutter/bin"
 
 # Run basic check to download Dark SDK
-RUN flutter doctor
+RUN sudo flutter doctor
     
 # Apply user-specific settings
 
