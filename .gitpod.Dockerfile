@@ -11,14 +11,9 @@ RUN sudo apt-get update -y && sudo apt-get upgrade -y && \
 # Prerequisites
 RUN sudo apt update && sudo apt install -y curl git unzip xz-utils zip libglu1-mesa openjdk-8-jdk wget
 
-# Set up new user
-RUN sudo useradd -ms /bin/bash developer
-USER developer
-WORKDIR /home/developer
-
 # Prepare Android directories and system variables
 RUN mkdir -p Android/sdk
-ENV ANDROID_SDK_ROOT /home/developer/Android/sdk
+ENV ANDROID_SDK_ROOT /home/gitpod/Android/sdk
 RUN mkdir -p .android && touch .android/repositories.cfg
 
 # Set up Android SDK
@@ -34,6 +29,7 @@ RUN git clone https://github.com/flutter/flutter.git
 ENV PATH "$PATH:/home/developer/flutter/bin"
 
 # Run basic check to download Dark SDK
+RUN chmod 
 RUN flutter doctor
     
 # Apply user-specific settings
