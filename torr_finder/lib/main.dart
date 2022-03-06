@@ -190,67 +190,56 @@ class Searchbar extends StatefulWidget {
 class _Searchbar extends State<Searchbar> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
       padding: const EdgeInsets.all(10),
-      child: Form(
-        child: Stack(
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                //border: Border.all(color: Colors.blue),
-                borderRadius: BorderRadius.all(Radius.circular(40)),
-                color: Colors.white,
-              ),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                      child: TextFormField(
-                    textInputAction: TextInputAction.search,
-                    decoration: InputDecoration(
-                      hintText: 'Enter search query',
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(40.0),
-                          borderSide: BorderSide(color: Colors.white)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(40.0),
-                          borderSide: BorderSide(color: Colors.white)),
-                    ),
-                    onFieldSubmitted: (value) {},
-                    onChanged: (value) {},
-                    validator: (value) {},
-                  )),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      MaterialButton(
-                        shape: CircleBorder(),
-                        //fillColor: Colors.red,
-                        // padding: const EdgeInsets.only(right: 20.0),
-                        minWidth: 0,
-                        child: Icon(
-                          Icons.clear,
-                          color: Colors.red,
-                        ),
-                        onPressed: () {},
-                      ),
-                      MaterialButton(
-                        shape: CircleBorder(),
-                        // padding: const EdgeInsets.only(right: 25.0),
-                        //fillColor: Colors.red,
-                        minWidth: 0,
-                        child: Icon(
-                          Icons.search,
-                          color: Colors.red,
-                        ),
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+      child: Stack(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(40)),
+              color: Colors.white,
             ),
-          ],
-        ),
+            child: Row(
+              children: <Widget>[
+                TextFormField(
+                  textInputAction: TextInputAction.search,
+                  decoration: InputDecoration(
+                    hintText: 'Enter search query',
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(40.0),
+                        borderSide: BorderSide(color: Colors.white)),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(40.0),
+                        borderSide: BorderSide(color: Colors.white)),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    MaterialButton(
+                      shape: CircleBorder(),
+                      minWidth: 0,
+                      child: Icon(
+                        Icons.clear,
+                        color: Colors.red,
+                      ),
+                      onPressed: () {},
+                    ),
+                    MaterialButton(
+                      shape: CircleBorder(),
+                      minWidth: 0,
+                      child: Icon(
+                        Icons.search,
+                        color: Colors.red,
+                      ),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
