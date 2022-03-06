@@ -6,6 +6,9 @@ void main() {
   runApp(const MyApp());
 }
 
+final controller = TextEditingController();
+var query = "";
+
 // This widget is the root of your application.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -36,6 +39,13 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   void homeset() {
+    setState(() {
+      query = '';
+      controller.clear();
+    });
+  }
+
+  void UpdateState() {
     setState(() {});
   }
 
@@ -174,14 +184,17 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
         body: Column(children: [
-          Searchbar(),
+          Searchbar(onClick: UpdateState),
+          Resultsbar(),
         ]));
   }
 }
 
 // Searchbar Widget
 class Searchbar extends StatefulWidget {
-  const Searchbar({Key? key}) : super(key: key);
+  const Searchbar({Key? key, required this.onClick}) : super(key: key);
+
+  final Function onClick;
 
   @override
   State<Searchbar> createState() => _Searchbar();
@@ -190,7 +203,7 @@ class Searchbar extends StatefulWidget {
 class _Searchbar extends State<Searchbar> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
       padding: const EdgeInsets.all(10),
       child: Stack(
         children: <Widget>[
@@ -201,38 +214,64 @@ class _Searchbar extends State<Searchbar> {
             ),
             child: Row(
               children: <Widget>[
-                TextFormField(
-                  textInputAction: TextInputAction.search,
-                  decoration: InputDecoration(
-                    hintText: 'Enter search query',
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(40.0),
-                        borderSide: BorderSide(color: Colors.white)),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(40.0),
-                        borderSide: BorderSide(color: Colors.white)),
+                Expanded(
+                  child: TextField(
+                    controller: controller,
+                    textInputAction: TextInputAction.search,
+                    decoration: InputDecoration(
+                      hintText: "Search Your Torrents!",
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(40.0),
+                          borderSide: BorderSide(color: Colors.white)),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(40.0),
+                          borderSide: BorderSide(color: Colors.white)),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        query = controller.text;
+                        widget.onClick();
+                      });
+                    },
+                    onSubmitted: (value) {
+                      setState(() {
+                        query = controller.text;
+                        widget.onClick();
+                      });
+                    },
                   ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    MaterialButton(
-                      shape: CircleBorder(),
-                      minWidth: 0,
-                      child: Icon(
-                        Icons.clear,
-                        color: Colors.red,
-                      ),
-                      onPressed: () {},
-                    ),
-                    MaterialButton(
-                      shape: CircleBorder(),
-                      minWidth: 0,
-                      child: Icon(
+                    controller.text.isNotEmpty
+                        ? IconButton(
+                            padding: EdgeInsets.all(0),
+                            icon: Icon(
+                              Icons.clear,
+                              color: Colors.red,
+                            ),
+                            tooltip: "Clear",
+                            onPressed: () {
+                              query = '';
+                              controller.clear();
+                              widget.onClick();
+                            },
+                          )
+                        : SizedBox(),
+                    IconButton(
+                      padding: EdgeInsets.all(0),
+                      icon: Icon(
                         Icons.search,
-                        color: Colors.red,
+                        color: Colors.green,
                       ),
-                      onPressed: () {},
+                      tooltip: "Search",
+                      onPressed: () {
+                        setState(() {
+                          query = controller.text;
+                          widget.onClick();
+                        });
+                      },
                     ),
                   ],
                 ),
@@ -241,6 +280,24 @@ class _Searchbar extends State<Searchbar> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class Resultsbar extends StatefulWidget {
+  const Resultsbar({Key? key}) : super(key: key);
+
+  @override
+  State<Resultsbar> createState() => _Resultsbar();
+}
+
+class _Resultsbar extends State<Resultsbar> {
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      'Query \n $query',
+      textAlign: TextAlign.center,
+      style: TextStyle(color: Colors.white),
     );
   }
 }
