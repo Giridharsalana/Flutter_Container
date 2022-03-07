@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.torr_finder">
+    package="com.giridharsalana.torr_finder">
    <application
         android:label="Torr Finder"
         android:name="${applicationName}"
